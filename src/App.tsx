@@ -31,6 +31,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/tools" element={<Tools />} />
+              <Route path="/discover" element={<Discover />} />
               <Route path="/tools/:id" element={<ToolDetail />} />
               <Route path="/submit" element={<Submit />} />
               <Route path="/login" element={<Login />} />
@@ -41,6 +42,7 @@ const App = () => (
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
+          <ChatWidget />
         </TooltipProvider>
       </AuthProvider>
     </ThemeProvider>
