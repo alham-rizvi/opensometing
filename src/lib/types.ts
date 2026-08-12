@@ -111,7 +111,7 @@ export const CATEGORIES: CategoryInfo[] = [
   { id: 'databases', name: 'Databases', description: 'Relational, document, vector and time-series stores', icon: 'Database', group: 'Data & AI', query: 'database engine' },
   { id: 'analytics', name: 'Analytics & BI', description: 'Dashboards and privacy-friendly web analytics', icon: 'BarChart3', group: 'Data & AI', query: 'analytics dashboard' },
   { id: 'search', name: 'Search Engines', description: 'Full-text, vector and metasearch engines', icon: 'Search', group: 'Data & AI', query: 'search engine' },
-  { id: 'scraping', name: 'Scraping & Data Collection', description: 'Crawlers, parsers and dataset builders', icon: 'Spider', group: 'Data & AI', query: 'web scraping crawler' },
+  { id: 'scraping', name: 'Scraping & Data Collection', description: 'Crawlers, parsers and dataset builders', icon: 'Bug', group: 'Data & AI', query: 'web scraping crawler' },
 
   // ---------- Infrastructure ----------
   { id: 'devops', name: 'DevOps & CI/CD', description: 'Pipelines, containers and delivery automation', icon: 'Infinity', group: 'Infrastructure', query: 'devops ci cd' },
