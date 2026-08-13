@@ -3,6 +3,7 @@ import { ArrowUpRight, Scale, Star } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tool, getCategory } from '@/lib/types';
+import { openStackerScore, isSelfHostable } from '@/lib/score';
 import CategoryIcon from './CategoryIcon';
 
 interface ToolCardProps {
