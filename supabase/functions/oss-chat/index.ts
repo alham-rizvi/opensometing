@@ -14,7 +14,7 @@ Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
 
   try {
-    const apiKey = Deno.env.get('LOVABLE_API_KEY');
+    const apiKey = Deno.env.get('OPENAI_API_KEY');
     if (!apiKey) return json({ error: 'AI is not configured' }, 500);
 
     const { messages } = await req.json();
@@ -28,15 +28,14 @@ Deno.serve(async (req) => {
         content: m.content.slice(0, 4000),
       }));
 
-    const res = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+    const res = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Lovable-API-Key': apiKey,
-        'X-Lovable-AIG-SDK': 'fetch',
+        'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        model: 'google/gemini-3.6-flash',
+        model: 'gpt-4o-mini',
         messages: [{ role: 'system', content: SYSTEM_PROMPT }, ...trimmed],
       }),
     });
