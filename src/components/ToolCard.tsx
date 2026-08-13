@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowUpRight, Scale, Star } from 'lucide-react';
+import { ArrowUpRight, Scale, Star, Gauge, Server } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tool, getCategory } from '@/lib/types';
@@ -18,6 +18,7 @@ const difficultyLabel: Record<string, string> = {
 
 const ToolCard = ({ tool }: ToolCardProps) => {
   const category = getCategory(tool.category);
+  const score = openStackerScore(tool);
 
   return (
     <Link to={`/tools/${tool.id}`} className="block h-full">
@@ -57,6 +58,16 @@ const ToolCard = ({ tool }: ToolCardProps) => {
         ) : null}
 
         <div className="flex flex-wrap items-center gap-1.5 mt-4">
+          <Badge className="text-xs gap-1" title="Open Stacker Score">
+            <Gauge className="h-3 w-3" />
+            {score}/100
+          </Badge>
+          {isSelfHostable(tool) && (
+            <Badge variant="secondary" className="text-xs gap-1">
+              <Server className="h-3 w-3" />
+              Self-hostable
+            </Badge>
+          )}
           {tool.difficulty && (
             <Badge variant="secondary" className="text-xs gap-1">
               <Star className="h-3 w-3" />
@@ -67,7 +78,7 @@ const ToolCard = ({ tool }: ToolCardProps) => {
             <Scale className="h-3 w-3" />
             {tool.license}
           </Badge>
-          {tool.tags.slice(0, 2).map((tag) => (
+          {tool.tags.slice(0, 1).map((tag) => (
             <Badge key={tag} variant="outline" className="text-xs">
               {tag}
             </Badge>
