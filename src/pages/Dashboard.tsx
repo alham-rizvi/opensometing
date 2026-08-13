@@ -32,6 +32,23 @@ const Dashboard = () => {
   if (!user) return null;
 
   const userTools = getToolsByUser(user.username);
+  const userReviews = getReviews().filter((r) => r.username === user.username);
+  const categoriesCovered = new Set(userTools.map((t) => t.category)).size;
+  const avgScore = userTools.length
+    ? Math.round(userTools.reduce((sum, t) => sum + openStackerScore(t), 0) / userTools.length)
+    : 0;
+
+  const stats = [
+    { label: 'Published tools', value: userTools.length, icon: Package, hint: 'Live in the directory' },
+    { label: 'Reviews written', value: userReviews.length, icon: MessageSquare, hint: 'Helping the community' },
+    { label: 'Categories covered', value: categoriesCovered, icon: Layers, hint: 'Across the stack' },
+    {
+      label: 'Avg. Stacker Score',
+      value: avgScore || '—',
+      icon: Gauge,
+      hint: avgScore ? scoreLabel(avgScore) : 'Submit a project',
+    },
+  ];
 
   const handleDeleteTool = (toolId: string, toolName: string) => {
     const success = deleteTool(toolId);
@@ -58,8 +75,23 @@ const Dashboard = () => {
           <div className="mb-8">
             <h1 className="text-3xl font-bold mb-2">Dashboard</h1>
             <p className="text-muted-foreground">
-              Manage your submitted tools and profile
+              Manage your published projects, reviews and contributor profile on Open Stacker
             </p>
+          </div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+            {stats.map(({ label, value, icon: Icon, hint }) => (
+              <Card key={label}>
+                <CardContent className="pt-6">
+                  <div className="flex items-center justify-between">
+                    <p className="text-sm text-muted-foreground">{label}</p>
+                    <Icon className="h-4 w-4 text-muted-foreground" />
+                  </div>
+                  <p className="text-3xl font-bold mt-2">{value}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{hint}</p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -87,6 +119,23 @@ const Dashboard = () => {
                   <p className="text-sm text-muted-foreground">Tools submitted</p>
                   <p className="font-medium">{userTools.length}</p>
                 </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Reviews written</p>
+                  <p className="font-medium flex items-center gap-2">
+                    <Star className="h-4 w-4" />
+                    {userReviews.length}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm text-muted-foreground">Contributor level</p>
+                  <Badge variant="secondary">
+                    {userTools.length + userReviews.length >= 10
+                      ? 'Core contributor'
+                      : userTools.length + userReviews.length >= 3
+                        ? 'Active contributor'
+                        : 'Newcomer'}
+                  </Badge>
+                </div>
               </CardContent>
             </Card>
 
@@ -96,10 +145,10 @@ const Dashboard = () => {
                 <div>
                   <CardTitle className="flex items-center gap-2">
                     <Package className="h-5 w-5" />
-                    Your Tools
+                    Your published projects
                   </CardTitle>
                   <CardDescription>
-                    Tools you've submitted to the directory
+                    Projects you've published to Open Stacker
                   </CardDescription>
                 </div>
                 <Link to="/submit">
@@ -152,8 +201,16 @@ const Dashboard = () => {
                               <Badge variant="secondary" className="text-xs">
                                 {getCategoryName(tool.category)}
                               </Badge>
+                              <Badge className="text-xs gap-1">
+                                <Gauge className="h-3 w-3" />
+                                {openStackerScore(tool)}/100
+                              </Badge>
+                              <Badge variant="outline" className="text-xs gap-1">
+                                <Globe className="h-3 w-3" />
+                                Published
+                              </Badge>
                               <span className="text-xs text-muted-foreground">
-                                Added {new Date(tool.createdAt).toLocaleDateString()}
+                                {new Date(tool.createdAt).toLocaleDateString()}
                               </span>
                             </div>
                           </div>
