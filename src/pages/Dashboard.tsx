@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { User, Package, Trash2, Plus, Calendar } from 'lucide-react';
+import { User, Package, Trash2, Plus, Calendar, Gauge, MessageSquare, Layers, Star, Globe } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -21,6 +21,8 @@ import ProtectedRoute from '@/components/ProtectedRoute';
 import { useAuth } from '@/contexts/AuthContext';
 import { getToolsByUser, deleteTool } from '@/lib/storage';
 import { getCategoryName } from '@/lib/types';
+import { getReviews } from '@/lib/reviews';
+import { openStackerScore, scoreLabel } from '@/lib/score';
 
 const Dashboard = () => {
   const { user } = useAuth();
