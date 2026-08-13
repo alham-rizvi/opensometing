@@ -23,7 +23,7 @@ const ChatWidget = () => {
     {
       role: 'assistant',
       content:
-        "Hi! I'm **Enlighten**, your open source guide. Ask me for a free alternative to any paid app, or how to get started with a project.",
+        "Hi! I'm **Stacker AI**, your open-source guide. Tell me what you pay for and I'll find the open-source alternative — or explain how to get started with any project.",
     },
   ]);
   const [input, setInput] = useState('');
@@ -73,7 +73,7 @@ const ChatWidget = () => {
           <div className="flex items-center justify-between px-4 py-3 border-b bg-muted/50">
             <div className="flex items-center gap-2">
               <Sparkles className="h-4 w-4 text-primary" />
-              <span className="font-semibold text-sm">Enlighten · Open Source Guide</span>
+              <span className="font-semibold text-sm">Stacker AI · Open Source Guide</span>
             </div>
             <Button variant="ghost" size="icon" onClick={() => setOpen(false)} aria-label="Close chat">
               <X className="h-4 w-4" />

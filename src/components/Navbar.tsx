@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Moon, Sun, Menu, X, Github } from 'lucide-react';
+import { Moon, Sun, Menu, X, Layers } from 'lucide-react';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
@@ -24,8 +24,8 @@ const Navbar = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2 font-bold text-xl">
-            <Github className="h-6 w-6" />
-            <span className="hidden sm:inline">OSS Directory</span>
+            <Layers className="h-6 w-6" />
+            <span className="hidden sm:inline">Open Stacker</span>
           </Link>
 
           {/* Desktop Navigation */}
